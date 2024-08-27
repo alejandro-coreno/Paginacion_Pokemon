@@ -16,10 +16,9 @@ export const getStaticPaths = ( async () => {
     // retornamos los params y las props de cada pokemon 
 
     return results.map(({ name, url }) => ({
-        params: { name},
-        props: {name, url}
-    }))
-
+        params: {name: name },
+        props: {name: name, url: url}
+    }));
 
 }) satisfies GetStaticPaths;
 
@@ -39,9 +38,10 @@ const audioSrc = `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pok
     <section class="mt-10 mx-10 flex flex-col justify-center items-center">
        <div>
             <a href="/">Regresar</a>
-            <h1 class="text-5xl capitalize">Pagina pokemon - { name }</h1>
+            <h1 class="text-5xl capitalize">{ name }</h1>
        </div>
 
+       <!-- Componente Pokemon -->
        <Pokemon name={ name } url={url} isBig />
 
        <audio controls class="mt-5">

@@ -1,4 +1,6 @@
 ---
+import { ViewTransitions } from 'astro:transitions';
+
     interface Props {
         title: string;
     }
@@ -11,9 +13,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{ title }</title>
+    <ViewTransitions />
 </head>
 <body class="bg-slate-800 text-slate-100 m-auto max-w-3xl ">
-    <main class="mt-10">
+    <main class="mt-3">
         <slot />
     </main>
 </body>
