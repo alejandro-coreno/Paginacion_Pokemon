@@ -2,6 +2,8 @@
 import { ViewTransitions } from 'astro:transitions';
 import {siteInfo }from "src/const/site-info";
 
+import NavBar from 'src/components/shared/NavBar.astro';
+
 // agregamos la props de image y description para cada pagina de cada pokemon , para poder mostrar los meta datos de la pagina
 interface Props {
     title?: string;
@@ -25,9 +27,20 @@ const { title = siteInfo.title, description = siteInfo.descripcion, image  } = A
      <meta property="og:description" content={description}>
      <meta property="og:image" content={image}>
     <title>{ title }</title>
+
+    <!-- Transiciones entre paginas #Forma 1 -->
     <ViewTransitions />
+
+    <!-- ViewTransition con zero JS  Forma 2-->
+    <!-- <style>
+        @view-transition {
+          navigation: auto; /* enabled! */
+        }
+    </style> -->
 </head>
 <body class="bg-slate-800 text-slate-100 m-auto max-w-3xl ">
+
+    <NavBar />
     <main class="mt-3">
         <slot />
     </main>
