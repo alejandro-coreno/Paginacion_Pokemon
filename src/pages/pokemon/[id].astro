@@ -3,56 +3,56 @@ import type { GetStaticPaths } from "astro";
 import type { PokemonListResponse } from "../../interfaces/pokemon-list.reponse";
 
 import MainLayout from "../../layouts/MainLayout.astro";
-import Pokemon from "../../components/pokemon/Pokemon.astro";
+// path relativo
+import Pokemon from "../../components/pokemon/Pokemon.astro"
+
+//path absoluto
+// import Pokemon from "src/components/pokemon/Pokemon.astro"
+
+// alias
+// import Pokemon from "@components/pokemon/Pokemon.astro";
 
 // Funcion que permite generar un pagina dinamica con el nombrel del pokemon
-export const getStaticPaths = ( async () => {
+export const getStaticPaths = (async () => {
+  const resp = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151");
+  const { results } = (await resp.json()) as PokemonListResponse;
 
-    const resp = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151");
-    const { results } = await resp.json() as PokemonListResponse;
+  // retornamos los params y las props de cada pokemon con el Id, el props
+  return results.map(({ name, url }) => {
+    const id = url.split("/").at(-2);
 
-    // retornamos los params y las props de cada pokemon con el Id, el props
-    return results.map(({ name, url }) => {
-        
-        const id = url.split('/').at(-2);
-
-        return {
-            params: {id: id},
-            props: { name: name, url: url}
-        }
-    })
-
+    return {
+      params: { id: id },
+      props: { name: name, url: url },
+    };
+  });
 }) satisfies GetStaticPaths;
-
 
 const { id } = Astro.params;
 
 const { name, url } = Astro.props;
 
-const audioSrc = `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/${id}.ogg`
+const audioSrc = `https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/${id}.ogg`;
 ---
 
 <MainLayout title="algun pokemon ">
+  <section class="mt-10 mx-10 flex flex-col justify-center items-center">
+    <div>
+      <a href=`/`>Regresar</a>
+      <h1 class="text-5xl capitalize">{name}</h1>
+    </div>
 
-    <section class="mt-10 mx-10 flex flex-col justify-center items-center">
-       <div>
-            <a href=`/`>Regresar</a>
-            <h1 class="text-5xl capitalize">{ name }</h1>
-       </div>
+    <!-- Componente Pokemon -->
+    <Pokemon name={name} url={url} isBig />
 
-       <!-- Componente Pokemon -->
-       <Pokemon name={ name } url={url} isBig />
-
-       <audio controls class="mt-5">
-            <source src={ audioSrc} type="audio/ogg" />
-       </audio>
-       
-    </section>
+    <audio controls class="mt-5">
+      <source src={audioSrc} type="audio/ogg" />
+    </audio>
+  </section>
 </MainLayout>
 
-
 <style>
-    a {
-        @apply hover:underline text-blue-500
-    }
+  a {
+    @apply hover:underline text-blue-500;
+  }
 </style>
