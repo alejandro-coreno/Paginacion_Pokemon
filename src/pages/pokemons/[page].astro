@@ -7,6 +7,8 @@
 	import Pokemon from "../../components/pokemon/Pokemon.astro";
  	import MainLayout from "../../layouts/MainLayout.astro";
 
+	import Title from "src/components/shared/Title.astro";
+
 
 	// hilo asincrono  
 	
@@ -30,8 +32,7 @@
 
 
 <MainLayout title="Pokemon Static | Home">
-	<h1 class="text-3xl">Listado de Pokemons</h1>
-	<hr>
+	<Title>Listado Paginado</Title>
 	
 	<section class="grid mt-5 grid-cols-1 sm:grid-cols-4 md:grid-cols-5 gap-4 " aria-label="Listado de Pokemons">
 		{

@@ -4,6 +4,7 @@ import type { PokemonListResponse } from "../../interfaces/pokemon-list.reponse"
 
 import Pokemon from "../../components/pokemon/Pokemon.astro"
 import MainLayout from "../../layouts/MainLayout.astro";
+import Title from "src/components/shared/Title.astro";
 
 // Ruta dinamica que espera un nombre del pokemon para crear una pagina nueva
 
@@ -39,8 +40,9 @@ const srcImage = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprit
 
     <section class="mt-10 mx-10 flex flex-col justify-center items-center">
        <div>
-            <a href="/">Regresar</a>
-            <h1 class="text-5xl capitalize">{ name }</h1>
+            <!-- <a href="/">Regresar</a> -->
+            <button onclick="history.back()" class="text-blue-500 uppercase font-medium tracking-wide">Regresar</button>
+            <Title>{ name }</Title>
        </div>
 
        <!-- Componente Pokemon -->

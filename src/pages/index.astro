@@ -6,6 +6,8 @@
 	import Pokemon from "../components/pokemon/Pokemon.astro";
  	import MainLayout from "../layouts/MainLayout.astro";
 
+	//importamos nuestro componente Title el cual solo cambia el contenido
+	import Title from "src/components/shared/Title.astro";
 
 	// hilo asincrono  
 	const resp = await fetch('https://pokeapi.co/api/v2/pokemon');
@@ -17,8 +19,8 @@
 
 
 <MainLayout title="Pokemon Static | Home">
-	<h1 class="text-3xl">Listado de Pokemons</h1>
-	<hr>
+	
+	<Title>Listado</Title>
 	
 	<section class="grid mt-5 grid-cols-1 sm:grid-cols-4 md:grid-cols-5 gap-4 " aria-label="Listado de Pokemons">
 		{

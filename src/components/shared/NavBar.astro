@@ -2,24 +2,65 @@
 // arreglo de link
 const links = [
     {href: '/', text: 'Listado'},
-    {href: '/pokemons/1', text: 'Listado Paginado'},
-    {href: '/favorites', text: 'Listado'}
+    {href: '/pokemons/1', text: 'Paginado'},
+    {href: '/favorites', text: 'Favoritos'}
 ]
+// Nos indica informacion de la ruta
+const currentPath = Astro.url.pathname; 
 ---
 
 <!-- component Navbar-->
-<nav class="bg-white shadow dark:bg-gray-800">
+<nav class="shadow bg-slate-900">
     <div class="container flex items-center justify-center p-6 mx-auto text-gray-600 capitalize dark:text-gray-300">
         <!-- Iteramos nuestros arreglo de links para no duplicar -->
-        {
-            links.map((link) => (
+        <!-- {
+            links.map(({ href, text }) => (
                 <a 
-                    href={link.href} 
-                    class="text-gray-800 dark:text-gray-200 border-b-2 border-blue-500 mx-1.5 sm:mx-6"
+                    href={href} 
+                    class:list={[
+                        "text-gray-800 dark:text-gray-200 mx-1.5 sm:mx-6",
+                        {
+                            "border-b-2 border-blue-500": currentPath === href
+                        }
+                    ]}
                 >
-                {link.text}
+                {text}
                 </a>
+            ))
+        } -->
+
+        <!-- // Menu transition sin JS  -->
+        {
+            links.map(({ href, text }) => (
+                <div>
+                    <a 
+                        href={href} 
+                        class="text-gray-800 dark:text-gray-200 mx-1.5 sm:mx-6"    
+                    >
+                        {text}
+                    </a>
+
+                    {
+                        currentPath === href ? (
+                            <div 
+                                transition:name="menu-line"
+                                class="active">
+                            </div>
+                        )
+
+                        :
+                        <div class="border-b-2 border-transparent"></div>
+                    }
+                </div>
+
+               
             ))
         }
     </div>
 </nav>
+
+<style>
+    .active {
+        @apply border-2 border-blue-600 mx-3
+    }
+</style>
